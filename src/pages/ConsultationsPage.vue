@@ -1,20 +1,22 @@
 <template>
-  <q-page :class="['hero-page', isDark ? 'dark' : 'light']">
-    <div class="hero-content text-center">
+  <q-page :class="['consult-page', isDark ? 'dark' : 'light']">
+    <div class="consult-content text-center">
       <!-- Avatar -->
       <q-avatar size="90px" class="q-mb-md">
-        <img src="https://randomuser.me/api/portraits/women/44.jpg" />
+        <img
+          src="https://images.seeklogo.com/logo-png/36/1/municipalidad-de-puno-logo-png_seeklogo-367391.png"
+        />
       </q-avatar>
 
       <!-- Título -->
-      <div class="hero-title">
+      <div class="consult-title">
         Hola, Vecino y Vecina <br />
         En esta página puedes <br />
         realizar tus consultas.
       </div>
 
       <!-- Descripción -->
-      <div class="hero-subtitle q-mt-md">
+      <div class="consult-subtitle q-mt-md">
         Realiza las consultas que desees, estamos aquí para ayudarte.
         <br />
         Based in Boston, bringing ideas to life through code and creativity.
@@ -276,7 +278,7 @@ const filteredData = computed(() => {
 
 <style scoped>
 /* BASE */
-.hero-page {
+.consult-page {
   min-height: 100vh;
   padding-top: 90px;
   transition:
@@ -285,48 +287,48 @@ const filteredData = computed(() => {
 }
 
 /* 🌙 DARK MODE */
-.hero-page.dark {
+.consult-page.dark {
   background: #0d0d0d;
   color: white;
 }
 
 /* ☀️ LIGHT MODE */
-.hero-page.light {
+.consult-page.light {
   background: #f5f5f5;
   color: #111;
 }
 
 /* CONTENEDOR */
-.hero-content {
+.consult-content {
   max-width: 700px;
   margin: 20px auto;
   padding: 0 16px;
 }
 
 /* TITULO */
-.hero-title {
+.consult-title {
   font-size: 48px;
   font-weight: 700;
   line-height: 1.2;
 }
 
 @media (max-width: 600px) {
-  .hero-title {
+  .consult-title {
     font-size: 28px;
   }
 }
 
 /* SUBTITULO */
-.hero-subtitle {
+.consult-subtitle {
   font-size: 16px;
   line-height: 1.6;
 }
 
-.hero-page.dark .hero-subtitle {
+.consult-page.dark .consult-subtitle {
   color: #9e9e9e;
 }
 
-.hero-page.light .hero-subtitle {
+.consult-page.light .consult-subtitle {
   color: #555;
 }
 
@@ -343,21 +345,21 @@ const filteredData = computed(() => {
 }
 
 /* INPUT DARK */
-.hero-page.dark .search-input {
+.consult-page.dark .search-input {
   background: rgba(255, 255, 255, 0.05);
 }
 
 /* INPUT LIGHT */
-.hero-page.light .search-input {
+.consult-page.light .search-input {
   background: rgba(0, 0, 0, 0.05);
 }
 
 /* TEXTO INPUT */
-.hero-page.dark .search-input input {
+.consult-page.dark .search-input input {
   color: white;
 }
 
-.hero-page.light .search-input input {
+.consult-page.light .search-input input {
   color: #333;
 }
 
@@ -367,20 +369,20 @@ const filteredData = computed(() => {
 }
 
 /* HOVER */
-.hero-page.dark .search-input:hover {
+.consult-page.dark .search-input:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
-.hero-page.light .search-input:hover {
+.consult-page.light .search-input:hover {
   background: rgba(0, 0, 0, 0.08);
 }
 
 /* ICONOS SOCIALES */
-.hero-page.dark .social-icons {
+.consult-page.dark .social-icons {
   color: #bdbdbd;
 }
 
-.hero-page.light .social-icons {
+.consult-page.light .social-icons {
   color: #555;
 }
 
@@ -423,13 +425,13 @@ const filteredData = computed(() => {
 }
 
 /* CARD DARK */
-.hero-page.dark .custom-card {
+.consult-page.dark .custom-card {
   background: #1a1a1a;
   color: white;
 }
 
 /* CARD LIGHT */
-.hero-page.light .custom-card {
+.consult-page.light .custom-card {
   background: white;
   color: #111;
 }
@@ -451,11 +453,11 @@ const filteredData = computed(() => {
   margin-bottom: 8px;
 }
 
-.hero-page.dark .card-author {
+.consult-page.dark .card-author {
   color: #9e9e9e;
 }
 
-.hero-page.light .card-author {
+.consult-page.light .card-author {
   color: #777;
 }
 
@@ -465,11 +467,11 @@ const filteredData = computed(() => {
   line-height: 1.5;
 }
 
-.hero-page.dark .card-desc {
+.consult-page.dark .card-desc {
   color: #cccccc;
 }
 
-.hero-page.light .card-desc {
+.consult-page.light .card-desc {
   color: #555;
 }
 

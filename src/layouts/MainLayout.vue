@@ -1,15 +1,11 @@
 <template>
   <q-layout view="hHh lpR fFf" :class="['puno-layout', isDark ? 'dark-mode' : 'light-mode']">
-    <!-- ═══════════════════════════════════════
-         HEADER con glassmorphism al hacer scroll
-    ══════════════════════════════════════════ -->
     <q-header
       :class="['puno-header', scrolled ? 'header-scrolled' : 'header-top']"
       class="header-transition"
       elevated
     >
       <q-toolbar class="topbar q-px-lg" style="height: 72px">
-        <!-- Logo animado -->
         <div
           class="logo-wrapper row items-center q-gutter-sm"
           @click="scrollToTop"
@@ -26,7 +22,6 @@
 
         <q-space />
 
-        <!-- Menú desktop -->
         <nav class="desktop-nav row items-center q-gutter-xs">
           <q-btn
             v-for="item in navItems"
@@ -59,7 +54,6 @@
           </q-btn>
         </nav>
 
-        <!-- Hamburguesa móvil -->
         <div class="mobile-menu-btn">
           <q-btn
             flat
@@ -73,13 +67,11 @@
         </div>
       </q-toolbar>
 
-      <!-- Barra de progreso de scroll -->
       <div class="scroll-progress">
         <div class="scroll-progress-bar" :style="{ width: scrollProgress + '%' }" />
       </div>
     </q-header>
 
-    <!-- Drawer móvil mejorado -->
     <q-drawer v-model="drawerOpen" side="right" bordered behavior="mobile" :width="280">
       <div class="drawer-header column flex-center q-pa-lg">
         <div class="logo-circle logo-circle--lg q-mb-sm">
@@ -122,20 +114,13 @@
       </q-list>
     </q-drawer>
 
-    <!-- ═══════════════════════════════════════
-         CONTENIDO PRINCIPAL
-    ══════════════════════════════════════════ -->
     <q-page-container>
-      <!-- ─── HERO: Carrusel + Overlay épico ─── -->
       <section class="hero-section" ref="heroRef">
         <ImageCarousel :images="images" :height="heroHeight" />
 
-        <!-- Overlay gradient -->
         <div class="hero-overlay absolute-full" />
 
-        <!-- Contenido hero -->
         <div class="hero-content absolute-full column flex-center text-white text-center">
-          <!-- Badge animado -->
           <div class="hero-badge" :class="{ 'animate-in': heroVisible }">
             <q-icon name="place" size="14px" class="q-mr-xs" />
             Capital Folklórica del Perú
@@ -159,7 +144,7 @@
           </p>
 
           <div
-            class="row q-gutter-md justify-center"
+            class="row q-gutter-md justify-center hero-cta-group"
             :class="{ 'animate-in': heroVisible }"
             style="animation-delay: 0.45s"
           >
@@ -178,15 +163,14 @@
               no-caps
               size="lg"
               color="white"
-              label="Ver mapa"
-              icon="map"
+              label="Contactar"
+              icon="mail"
               to="/contact"
               class="hero-cta-secondary"
             />
           </div>
         </div>
 
-        <!-- Estadísticas flotantes -->
         <div
           class="hero-stats absolute-bottom row justify-center q-pb-xl q-gutter-md"
           style="pointer-events: none"
@@ -203,7 +187,6 @@
           </div>
         </div>
 
-        <!-- Scroll indicator -->
         <div class="scroll-indicator" @click="explorarClick">
           <div class="scroll-mouse">
             <div class="scroll-wheel" />
@@ -212,10 +195,8 @@
         </div>
       </section>
 
-      <!-- ─── SERVICIOS ─── -->
       <section class="servicios-section q-py-xl" ref="serviciosRef">
         <div class="section-container">
-          <!-- Cabecera -->
           <div
             class="section-header text-center q-mb-xl"
             :class="{ 'section-visible': serviciosVisible }"
@@ -227,7 +208,6 @@
             </p>
           </div>
 
-          <!-- Grid de servicios -->
           <div class="servicios-grid">
             <div
               v-for="(servicio, i) in servicios"
@@ -238,13 +218,11 @@
               @mouseenter="hoveredCard = i"
               @mouseleave="hoveredCard = null"
             >
-              <!-- Imagen con overlay -->
               <div class="servicio-img-wrap">
                 <img :src="servicio.image" :alt="servicio.title" class="servicio-img" />
                 <div class="servicio-img-overlay" :class="{ active: hoveredCard === i }" />
               </div>
 
-              <!-- Ícono flotante -->
               <div class="servicio-icon-wrap">
                 <q-avatar
                   size="52px"
@@ -256,7 +234,6 @@
                 </q-avatar>
               </div>
 
-              <!-- Contenido -->
               <div class="servicio-body q-pa-md q-pt-xl text-center">
                 <h3 class="servicio-title">{{ servicio.title }}</h3>
                 <p class="servicio-desc">{{ servicio.description }}</p>
@@ -275,7 +252,6 @@
         </div>
       </section>
 
-      <!-- ─── PROCESO / CÓMO FUNCIONA ─── -->
       <section class="proceso-section q-py-xl" ref="procesoRef">
         <div class="section-container">
           <div
@@ -305,7 +281,6 @@
                 <p class="paso-desc">{{ paso.desc }}</p>
               </div>
 
-              <!-- Conector (no en el último) -->
               <div v-if="i < pasos.length - 1" class="paso-connector gt-sm">
                 <q-icon name="arrow_forward" size="20px" color="grey-4" />
               </div>
@@ -314,7 +289,6 @@
         </div>
       </section>
 
-      <!-- ─── CTA FINAL ─── -->
       <section class="cta-section q-py-xl" ref="ctaRef">
         <div class="cta-inner" :class="{ 'section-visible': ctaVisible }">
           <div class="cta-decoration">
@@ -353,9 +327,6 @@
       </section>
     </q-page-container>
 
-    <!-- ═══════════════════════════════════════
-         FOOTER
-    ══════════════════════════════════════════ -->
     <q-footer class="puno-footer" bordered>
       <div class="footer-inner q-pa-xl">
         <div class="row q-col-gutter-xl">
@@ -384,7 +355,6 @@
             </div>
           </div>
 
-          <!-- Links rápidos -->
           <div class="col-6 col-md-2">
             <h6 class="footer-heading">Navegación</h6>
             <div class="column q-gutter-xs">
@@ -392,7 +362,6 @@
             </div>
           </div>
 
-          <!-- Contacto -->
           <div class="col-6 col-md-3">
             <h6 class="footer-heading">Contacto</h6>
             <div class="column q-gutter-sm">
@@ -403,7 +372,6 @@
             </div>
           </div>
 
-          <!-- Newsletter -->
           <div class="col-12 col-md-3">
             <h6 class="footer-heading">Boletín</h6>
             <p class="footer-text text-caption q-mb-md">
@@ -446,7 +414,6 @@ import ImageCarousel from 'components/ImageCarousel.vue'
 
 const $q = useQuasar()
 
-// ─── Estado ────────────────────────────────────────────
 const drawerOpen = ref(false)
 const scrolled = ref(false)
 const scrollPercent = ref(0)
@@ -458,17 +425,14 @@ const serviciosVisible = ref(false)
 const procesoVisible = ref(false)
 const ctaVisible = ref(false)
 
-// Refs para secciones
 const heroRef = ref(null)
 const serviciosRef = ref(null)
 const procesoRef = ref(null)
 const ctaRef = ref(null)
 
-// ─── Computed ──────────────────────────────────────────
 const scrollProgress = computed(() => Math.min(scrollPercent.value, 100))
 const heroHeight = computed(() => ($q.screen.lt.sm ? '480px' : '100vh'))
 
-// ─── Datos ─────────────────────────────────────────────
 const navItems = [
   { label: 'Inicio', to: '/', icon: 'home' },
   { label: 'Servicios', to: '/services', icon: 'apps' },
@@ -484,10 +448,11 @@ const heroStats = [
 ]
 
 const images = [
-  'https://picsum.photos/id/1015/1400/700',
-  'https://picsum.photos/id/1043/1400/700',
-  'https://picsum.photos/id/1029/1400/700',
-  'https://picsum.photos/id/1062/1400/700',
+  'https://www.caminosalkantay.com/blog/wp-content/uploads/2024/09/Puno-sus-misterios-y-las-islas-del-Titicaca-960x640.jpg',
+  'https://www.realcuscotour.com/wp-content/uploads/2025/07/puno.jpg',
+  'https://www.viajaraperu.com/wp-content/uploads/2011/12/mirador-Kuntur-Wasi-puno-760x500.jpg',
+  'https://depaseoperu.com/wp-content/uploads/2023/06/Puno-Peru.jpg',
+  'https://portal.andina.pe/EDPfotografia3/Thumbnail/2025/11/08/001223417W.webp',
 ]
 
 const servicios = [
@@ -585,7 +550,6 @@ const contactInfo = [
 
 const socials = ['facebook', 'twitter', 'instagram', 'youtube']
 
-// ─── Métodos ───────────────────────────────────────────
 function toggleDarkMode() {
   $q.dark.toggle()
   isDark.value = $q.dark.isActive
@@ -604,7 +568,6 @@ function explorarClick() {
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
 
-// ─── Scroll handler ────────────────────────────────────
 function handleScroll() {
   const y = window.scrollY
   scrolled.value = y > 60
@@ -612,7 +575,6 @@ function handleScroll() {
   scrollPercent.value = max > 0 ? (y / max) * 100 : 0
 }
 
-// ─── Intersection Observer ─────────────────────────────
 function createObserver(el, visibleRef, threshold = 0.15) {
   if (!el) return
   const obs = new IntersectionObserver(
@@ -630,11 +592,9 @@ function createObserver(el, visibleRef, threshold = 0.15) {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
-  // Trigger hero inmediatamente
   setTimeout(() => {
     heroVisible.value = true
   }, 200)
-  // Observar secciones
   createObserver(serviciosRef.value, serviciosVisible)
   createObserver(procesoRef.value, procesoVisible)
   createObserver(ctaRef.value, ctaVisible)
@@ -646,24 +606,15 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-// ══════════════════════════════════════════════════════════
-// VARIABLES
-// ══════════════════════════════════════════════════════════
-$puno-blue: #0057a8; // azul titicaca profundo
-$puno-gold: #e8a020; // dorado altiplano
-$puno-red: #c0392b; // rojo candelaria
-$puno-teal: #0b8f6a; // verde lago
+$puno-blue: #0057a8;
+$puno-gold: #e8a020;
+$puno-red: #c0392b;
+$puno-teal: #0b8f6a;
 
-// ══════════════════════════════════════════════════════════
-// RESET / BASE
-// ══════════════════════════════════════════════════════════
 .puno-layout {
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
-// ══════════════════════════════════════════════════════════
-// HEADER
-// ══════════════════════════════════════════════════════════
 .header-transition {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -779,9 +730,6 @@ $puno-teal: #0b8f6a; // verde lago
   }
 }
 
-// ══════════════════════════════════════════════════════════
-// HERO
-// ══════════════════════════════════════════════════════════
 .hero-section {
   position: relative;
   height: 100vh;
@@ -809,7 +757,7 @@ $puno-teal: #0b8f6a; // verde lago
 .hero-badge,
 .hero-title,
 .hero-subtitle,
-.hero-content > div {
+.hero-cta-group {
   opacity: 0;
   transform: translateY(32px);
   transition:
@@ -970,9 +918,6 @@ $puno-teal: #0b8f6a; // verde lago
   }
 }
 
-// ══════════════════════════════════════════════════════════
-// SECCIONES: helpers
-// ══════════════════════════════════════════════════════════
 .section-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -1026,9 +971,6 @@ $puno-teal: #0b8f6a; // verde lago
   line-height: 1.65;
 }
 
-// ══════════════════════════════════════════════════════════
-// SERVICIOS
-// ══════════════════════════════════════════════════════════
 .servicios-section {
   background: #f8f9fc;
   .dark-mode & {
@@ -1129,9 +1071,6 @@ $puno-teal: #0b8f6a; // verde lago
   padding: 4px 8px !important;
 }
 
-// ══════════════════════════════════════════════════════════
-// PROCESO
-// ══════════════════════════════════════════════════════════
 .proceso-section {
   background: white;
   .dark-mode & {
@@ -1211,9 +1150,6 @@ $puno-teal: #0b8f6a; // verde lago
   z-index: 1;
 }
 
-// ══════════════════════════════════════════════════════════
-// CTA
-// ══════════════════════════════════════════════════════════
 .cta-section {
   background: #f8f9fc;
   .dark-mode & {
@@ -1284,14 +1220,9 @@ $puno-teal: #0b8f6a; // verde lago
   }
 }
 
-// ══════════════════════════════════════════════════════════
-// FOOTER
-// ══════════════════════════════════════════════════════════
 .puno-footer {
   background: #0a1628 !important;
   color: white;
-  // Quasar con view="fFf" ya posiciona el footer debajo del contenido.
-  // Forzamos que nunca tape el contenido:
   position: relative !important;
   bottom: auto !important;
 }
@@ -1355,9 +1286,6 @@ $puno-teal: #0b8f6a; // verde lago
   height: 40px !important;
 }
 
-// ══════════════════════════════════════════════════════════
-// DARK MODE OVERRIDES
-// ══════════════════════════════════════════════════════════
 .dark-mode {
   .section-desc {
     color: #9ca3af !important;
@@ -1375,9 +1303,6 @@ $puno-teal: #0b8f6a; // verde lago
   }
 }
 
-// ══════════════════════════════════════════════════════════
-// RESPONSIVE
-// ══════════════════════════════════════════════════════════
 @media (max-width: 599px) {
   .hero-section {
     height: 100svh;
