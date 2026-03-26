@@ -79,17 +79,9 @@
           <div class="results-count">{{ filteredData.length }} registro(s) encontrado(s)</div>
         </div>
 
-        <div class="modern-table-wrapper">
+        <!-- TABLA: solo visible en desktop -->
+        <div class="modern-table-wrapper v-if">
           <table class="modern-table">
-            <!--<thead>
-              <tr>
-                <th>Conductor</th>
-                <th>Placa</th>
-                <th>Infracción</th>
-                <th>Fecha</th>
-                <th>Monto</th>
-              </tr>
-            </thead>-->
             <tbody>
               <tr v-for="(row, index) in filteredData" :key="row.papeleta">
                 <td class="driver-cell">
@@ -125,7 +117,59 @@
             </tbody>
           </table>
         </div>
-        <!-- NUEVO: Total de montos -->
+
+        <!-- CARDS: solo visible en móvil -->
+        <div class="v-else">
+          <div
+            v-for="(row, index) in filteredData"
+            :key="'card-' + row.papeleta"
+            class="result-card"
+          >
+            <!-- Cabecera de la card -->
+            <div class="result-card__header">
+              <q-avatar size="44px" class="driver-avatar">
+                <img :src="getAvatarUrl(row.nombreCompleto)" />
+              </q-avatar>
+              <div class="result-card__header-info">
+                <div class="driver-name">{{ row.nombreCompleto }}</div>
+                <div class="driver-dni">DNI: {{ row.dni }}</div>
+              </div>
+              <div class="monto-modern" style="margin-left: auto">
+                <span class="monto-symbol">S/</span>
+                {{ formatMonto(row.monto) }}
+              </div>
+            </div>
+
+            <!-- Detalles -->
+            <div class="result-card__body">
+              <div class="result-card__row">
+                <span class="result-card__label">
+                  <q-icon name="directions_car" size="14px" class="q-mr-xs" />
+                  Placa
+                </span>
+                <div class="placa-modern">{{ row.placa }}</div>
+              </div>
+
+              <div class="result-card__row">
+                <span class="result-card__label">
+                  <q-icon name="gavel" size="14px" class="q-mr-xs" />
+                  Infracción
+                </span>
+                <div class="infraccion-badge">{{ row.codigo }}</div>
+              </div>
+
+              <div class="result-card__row">
+                <span class="result-card__label">
+                  <q-icon name="event" size="14px" class="q-mr-xs" />
+                  Fecha
+                </span>
+                <div class="fecha-modern">{{ formatDate(row.fecha) }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total -->
         <div class="total-container">
           <div class="total-card">
             <div class="total-label">
@@ -198,7 +242,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { papeletas } from 'src/data/papeletas'
 
 const data = ref(papeletas)
@@ -390,6 +434,23 @@ const formatMonto = (monto) => {
     maximumFractionDigits: 2,
   }).format(monto)
 }
+
+// --- Detección de móvil reactiva ---
+const windowWidth = ref(window.innerWidth)
+
+const isMobile = computed(() => windowWidth.value <= 600)
+
+const handleResize = () => {
+  windowWidth.value = window.innerWidth
+}
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
+})
 </script>
 
 <style scoped>
@@ -996,5 +1057,90 @@ const formatMonto = (monto) => {
   .total-card {
     width: auto;
   }
+}
+
+/* RESPONSIVE: mostrar/ocultar tabla vs cards */
+.v-if {
+  display: block;
+}
+.v-else {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .v-if {
+    display: none;
+  }
+  .v-else {
+    display: block;
+  }
+}
+
+/* RESULT CARDS (móvil) */
+.result-card {
+  border-radius: 16px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.consult-page.light .result-card {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.consult-page.dark .result-card {
+  background: #1a1a1a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.result-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.consult-page.dark .result-card__header {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.result-card__header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.result-card__header-info .driver-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.result-card__body {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.result-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.result-card__label {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.consult-page.light .result-card__label {
+  color: #6b7280;
+}
+
+.consult-page.dark .result-card__label {
+  color: #9ca3af;
 }
 </style>

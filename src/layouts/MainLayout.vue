@@ -245,6 +245,7 @@
                   label="Ver más"
                   icon-right="arrow_forward"
                   class="servicio-link"
+                  :to="servicio.to || undefined"
                 />
               </div>
             </div>
@@ -433,13 +434,13 @@ const ctaRef = ref(null)
 const scrollProgress = computed(() => Math.min(scrollPercent.value, 100))
 const heroHeight = computed(() => ($q.screen.lt.sm ? '480px' : '100vh'))
 
-const navItems = [
+/*const navItems = [
   { label: 'Inicio', to: '/', icon: 'home' },
   { label: 'Servicios', to: '/services', icon: 'apps' },
   { label: 'Consultas', to: '/consult', icon: 'chat' },
   { label: 'Nosotros', to: '/about', icon: 'info' },
   { label: 'Contacto', to: '/contact', icon: 'contact_mail' },
-]
+]*/
 
 const heroStats = [
   { value: '120+', label: 'Servicios', delay: '0.6s' },
@@ -469,6 +470,7 @@ const servicios = [
     description: 'Verifica el estado de tu tarjeta vehicular en línea.',
     image: 'https://picsum.photos/id/1016/400/220',
     color: 'blue-8',
+    to: '/consult',
   },
   {
     icon: 'badge',
